@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<sdf version="1.8">
+  <!-- SAUVC 2026 Red Drum
+       Using mesh from sauvc_sim
+       Exterior: Black, Interior: Red
+  -->
+  <model name="drum">
+    <static>true</static>
+    
+    <link name="link_0">
+      <pose>0 0 0 1.5708 0 0</pose>
+      <inertial>
+        <mass>5.0</mass>
+        <inertia>
+          <ixx>0.166667</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.166667</iyy>
+          <iyz>0</iyz>
+          <izz>0.166667</izz>
+        </inertia>
+      </inertial>
+      
+      <visual name="visual">
+        <geometry>
+          <mesh>
+            <uri>model://drum/meshes/drum.obj</uri>
+            <scale>0.3 0.3 0.3</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.1 0.1 0.1 1</ambient>
+          <diffuse>0.15 0.15 0.15 1</diffuse>
+          <specular>0.2 0.2 0.2 1</specular>
+        </material>
+      </visual>
+      
+      <collision name="collision">
+        <geometry>
+          <mesh>
+            <uri>model://drum/meshes/drum.obj</uri>
+            <scale>0.3 0.3 0.3</scale>
+          </mesh>
+        </geometry>
+      </collision>
+    </link>
+  </model>
+</sdf>

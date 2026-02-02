@@ -1,0 +1,244 @@
+<?xml version="1.0"?>
+<sdf version="1.8">
+  <world name="sauvc_competition_world">
+
+    <!-- ============= PLUGINS ============= -->
+    <plugin
+      filename="gz-sim-physics-system"
+      name="gz::sim::systems::Physics">
+    </plugin>
+    <plugin
+      filename="gz-sim-user-commands-system"
+      name="gz::sim::systems::UserCommands">
+    </plugin>
+    <plugin
+      filename="gz-sim-scene-broadcaster-system"
+      name="gz::sim::systems::SceneBroadcaster">
+    </plugin>
+    <plugin
+      filename="gz-sim-sensors-system"
+      name="gz::sim::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+
+    <!-- IMU plugin manages all IMU sensors -->
+    <plugin filename="libgz-sim-imu-system.so"
+      name="gz::sim::systems::Imu">
+    </plugin>
+
+    <!-- Buoyancy system for underwater simulation -->
+    <plugin filename="gz-sim-buoyancy-system" name="gz::sim::systems::Buoyancy">
+      <graded_buoyancy>
+        <default_density>1000</default_density>
+        <density_change>
+          <above_depth>0</above_depth>
+          <density>1.2</density>
+        </density_change>
+      </graded_buoyancy>
+      <!-- Enable by model name -->
+      <enable>bluerov2</enable>
+    </plugin>
+
+    <!-- ============= SCENE SETTINGS ============= -->
+    <gravity>0 0 -9.81</gravity>
+    <magnetic_field>6e-6 2.3e-5 -4.2e-5</magnetic_field>
+    <atmosphere type="adiabatic" />
+
+    <scene>
+      <ambient>0.3 0.4 0.5 1</ambient>
+      <background>0.1 0.3 0.5 1</background>
+      <shadows>true</shadows>
+
+      <!-- Underwater fog effect -->
+      <fog>
+        <color>0.2 0.4 0.5 1</color>
+        <type>linear</type>
+        <start>1</start>
+        <end>30</end>
+        <density>0.02</density>
+      </fog>
+    </scene>
+
+    <physics name="default" type="dart">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+
+    <!-- ============= LIGHTING ============= -->
+    <!-- Sun model from Fuel -->
+    <light type="directional" name="sun">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+
+    <!-- Underwater ambient light -->
+    <light type="directional" name="underwater_light">
+      <cast_shadows>false</cast_shadows>
+      <pose>0 0 5 0 0 0</pose>
+      <diffuse>0.6 0.7 0.8 1</diffuse>
+      <specular>0.3 0.3 0.4 1</specular>
+      <direction>0 0.2 -1</direction>
+    </light>
+
+    <!-- ============= POOL STRUCTURE ============= -->
+    <!-- Pool: 25m x 16m x 1.6m deep, water surface at z=0, floor at z=-1.6 -->
+
+    <model name="pool_structure">
+      <static>true</static>
+      <pose>0 0 -1.65 0 0 0</pose>
+
+      <!-- Pool floor -->
+      <include>
+        <uri>model://pool_floor</uri>
+        <pose>0 0 0 0 0 0</pose>
+      </include>
+
+      <!-- Pool walls -->
+      <!-- Wall +X (East) -->
+      <link name="wall_east">
+        <pose>12.65 0 0.8 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.3 16.6 1.6</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.3 16.6 1.6</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.5 0.6 0.7 1</ambient>
+            <diffuse>0.6 0.7 0.8 1</diffuse>
+            <specular>0.2 0.2 0.2 1</specular>
+          </material>
+        </visual>
+      </link>
+
+      <!-- Wall -X (West) -->
+      <link name="wall_west">
+        <pose>-12.65 0 0.8 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.3 16.6 1.6</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.3 16.6 1.6</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.5 0.6 0.7 1</ambient>
+            <diffuse>0.6 0.7 0.8 1</diffuse>
+            <specular>0.2 0.2 0.2 1</specular>
+          </material>
+        </visual>
+      </link>
+
+      <!-- Wall +Y (North) -->
+      <link name="wall_north">
+        <pose>0 8.15 0.8 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>25 0.3 1.6</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>25 0.3 1.6</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.5 0.6 0.7 1</ambient>
+            <diffuse>0.6 0.7 0.8 1</diffuse>
+            <specular>0.2 0.2 0.2 1</specular>
+          </material>
+        </visual>
+      </link>
+
+      <!-- Wall -Y (South) -->
+      <link name="wall_south">
+        <pose>0 -8.15 0.8 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>25 0.3 1.6</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>25 0.3 1.6</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.5 0.6 0.7 1</ambient>
+            <diffuse>0.6 0.7 0.8 1</diffuse>
+            <specular>0.2 0.2 0.2 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Water surface visual (semi-transparent plane) -->
+    <model name="water_surface">
+      <static>true</static>
+      <pose>0 0 0 0 0 0</pose>
+      <link name="water_link">
+        <visual name="water_visual">
+          <geometry>
+            <box>
+              <size>25 16 0.01</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.1 0.3 0.5 0.6</ambient>
+            <diffuse>0.2 0.4 0.6 0.4</diffuse>
+            <specular>0.8 0.8 0.8 1</specular>
+          </material>
+          <transparency>0.5</transparency>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ============= STARTING ZONE ============= -->
+    <include>
+      <uri>model://starting_zone</uri>
+      <name>starting_zone</name>
+      <pose>-11.83 0 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <!-- ============= QUALIFICATION GATES ============= -->
+    <include>
+      <uri>model://gate_qualification</uri>
+      <name>q_gate</name>
+      <pose>-2.5 0 0 0 0 1.56</pose>
+      <static>true</static>
+    </include>
+
+    <!-- ============= BLUEROV2 AUV ============= -->
+    <!-- BlueROV2 at starting zone, slightly submerged -->
+    <include>
+      <uri>model://bluerov2</uri>
+      <name>bluerov2</name>
+      <pose>-11.83 0 -1 0 0 0</pose>
+    </include>
+
+  </world>
+</sdf>

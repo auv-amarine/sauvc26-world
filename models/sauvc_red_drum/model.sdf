@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<sdf version="1.8">
+  <!-- SAUVC 2026 Red Drum
+       Diameter: 60cm, Depth: 30cm
+       Color: Black exterior, Red interior
+  -->
+  <model name="red_drum">
+    <static>true</static>
+
+    <link name="drum_body">
+      <pose>0 0 0.15 0 0 0</pose>
+      <inertial>
+        <mass>5.0</mass>
+        <inertia>
+          <ixx>0.1</ixx><ixy>0</ixy><ixz>0</ixz>
+          <iyy>0.1</iyy><iyz>0</iyz><izz>0.15</izz>
+        </inertia>
+      </inertial>
+
+      <!-- Outer cylinder - Black exterior -->
+      <visual name="drum_outer">
+        <geometry>
+          <cylinder>
+            <radius>0.30</radius>
+            <length>0.30</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.05 0.05 0.05 1</ambient>
+          <diffuse>0.1 0.1 0.1 1</diffuse>
+          <specular>0.2 0.2 0.2 1</specular>
+        </material>
+      </visual>
+
+      <!-- Inner hollow visual (Red) -->
+      <visual name="drum_inner">
+        <pose>0 0 0.02 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.28</radius>
+            <length>0.26</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.8 0.1 0.1 1</ambient>
+          <diffuse>0.9 0.2 0.2 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+
+      <collision name="drum_collision">
+        <geometry>
+          <cylinder>
+            <radius>0.30</radius>
+            <length>0.30</length>
+          </cylinder>
+        </geometry>
+      </collision>
+    </link>
+
+  </model>
+</sdf>

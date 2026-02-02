@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<sdf version="1.8">
+  <!-- SAUVC 2026 Qualification Gate
+       Width: 150cm, Height: 1.6m (bottom of pool to water surface)
+       Pole diameter: 4cm, Orange markings on port and starboard
+  -->
+  <model name="gate_qualification">
+    <static>true</static>
+
+    <!-- Top horizontal bar at water surface (z=0) -->
+    <link name="top_bar">
+      <pose>0 0 0 0 0 0</pose>
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>0.01</ixx><ixy>0</ixy><ixz>0</ixz>
+          <iyy>0.01</iyy><iyz>0</iyz><izz>0.01</izz>
+        </inertia>
+      </inertial>
+
+      <visual name="top_bar_visual">
+        <pose>0 0 0 0 1.5708 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.02</radius>
+            <length>1.5</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.9 0.9 0.9 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+
+      <collision name="top_bar_collision">
+        <pose>0 0 0 0 1.5708 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.02</radius>
+            <length>1.5</length>
+          </cylinder>
+        </geometry>
+      </collision>
+    </link>
+
+    <!-- Left vertical post (port) - Orange -->
+    <link name="post_left">
+      <pose>-0.75 0 -0.8 0 0 0</pose>
+      <inertial>
+        <mass>0.5</mass>
+        <inertia>
+          <ixx>0.01</ixx><ixy>0</ixy><ixz>0</ixz>
+          <iyy>0.01</iyy><iyz>0</iyz><izz>0.01</izz>
+        </inertia>
+      </inertial>
+
+      <visual name="post_left_visual">
+        <geometry>
+          <cylinder>
+            <radius>0.02</radius>
+            <length>1.6</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>1 0.5 0 1</ambient>
+          <diffuse>1 0.55 0 1</diffuse>
+          <specular>0.2 0.2 0.2 1</specular>
+        </material>
+      </visual>
+
+      <collision name="post_left_collision">
+        <geometry>
+          <cylinder>
+            <radius>0.02</radius>
+            <length>1.6</length>
+          </cylinder>
+        </geometry>
+      </collision>
+    </link>
+
+    <!-- Right vertical post (starboard) - Orange -->
+    <link name="post_right">
+      <pose>0.75 0 -0.8 0 0 0</pose>
+      <inertial>
+        <mass>0.5</mass>
+        <inertia>
+          <ixx>0.01</ixx><ixy>0</ixy><ixz>0</ixz>
+          <iyy>0.01</iyy><iyz>0</iyz><izz>0.01</izz>
+        </inertia>
+      </inertial>
+
+      <visual name="post_right_visual">
+        <geometry>
+          <cylinder>
+            <radius>0.02</radius>
+            <length>1.6</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>1 0.5 0 1</ambient>
+          <diffuse>1 0.55 0 1</diffuse>
+          <specular>0.2 0.2 0.2 1</specular>
+        </material>
+      </visual>
+
+      <collision name="post_right_collision">
+        <geometry>
+          <cylinder>
+            <radius>0.02</radius>
+            <length>1.6</length>
+          </cylinder>
+        </geometry>
+      </collision>
+    </link>
+
+    <!-- Fixed joints -->
+    <joint name="top_left_joint" type="fixed">
+      <parent>top_bar</parent>
+      <child>post_left</child>
+    </joint>
+
+    <joint name="top_right_joint" type="fixed">
+      <parent>top_bar</parent>
+      <child>post_right</child>
+    </joint>
+
+  </model>
+</sdf>

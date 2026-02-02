@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<sdf version="1.8">
+  <!-- SAUVC 2026 Ball
+       Diameter: 4cm (3.5-4.5cm spec)
+       Sinks in water (density > 1000 kg/m³)
+  -->
+  <model name="ball">
+    <static>false</static>
+
+    <link name="ball_link">
+      <pose>0 0 0.02 0 0 0</pose>
+      <inertial>
+        <!-- Mass set for density ~1500 kg/m³ to ensure sinking -->
+        <mass>0.05</mass>
+        <inertia>
+          <ixx>8e-06</ixx><ixy>0</ixy><ixz>0</ixz>
+          <iyy>8e-06</iyy><iyz>0</iyz><izz>8e-06</izz>
+        </inertia>
+      </inertial>
+
+      <visual name="ball_visual">
+        <geometry>
+          <sphere>
+            <radius>0.02</radius>
+          </sphere>
+        </geometry>
+        <material>
+          <ambient>1 0.6 0 1</ambient>
+          <diffuse>1 0.7 0.1 1</diffuse>
+          <specular>0.5 0.5 0.5 1</specular>
+        </material>
+      </visual>
+
+      <collision name="ball_collision">
+        <geometry>
+          <sphere>
+            <radius>0.02</radius>
+          </sphere>
+        </geometry>
+      </collision>
+    </link>
+
+  </model>
+</sdf>

@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<sdf version="1.8">
+  <!-- SAUVC 2026 Golf Ball
+       Diameter: 1.6cm
+       Sinks in water (density > 1000 kg/m³)
+  -->
+  <model name="golf_ball">
+    <static>false</static>
+
+    <link name="ball_link">
+      <pose>0 0 0.008 0 0 0</pose>
+      <inertial>
+        <!-- Standard golf ball mass ~45.93g -->
+        <mass>0.046</mass>
+        <inertia>
+          <ixx>8.4e-06</ixx><ixy>0</ixy><ixz>0</ixz>
+          <iyy>8.4e-06</iyy><iyz>0</iyz><izz>8.4e-06</izz>
+        </inertia>
+      </inertial>
+
+      <visual name="ball_visual">
+        <geometry>
+          <sphere>
+            <radius>0.008</radius>
+          </sphere>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0.8 0.8 0.8 1</specular>
+        </material>
+      </visual>
+
+      <collision name="ball_collision">
+        <geometry>
+          <sphere>
+            <radius>0.008</radius>
+          </sphere>
+        </geometry>
+      </collision>
+    </link>
+
+  </model>
+</sdf>
