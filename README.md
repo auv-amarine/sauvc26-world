@@ -84,7 +84,7 @@ gz topic -e -t /front_camera
 
 It will echo the camera’s image stream. If you want to view the camera directly in Gazebo, simply search for “Image Display” in the top bar of Gazebo.
 
-For ROS 2 applications, you need to add a bridge between Gazebo and ROS 2. Nevertheless, ros_gz_bridge does not function properly in the Harmonic version due to a known [issue](https://github.com/gazebosim/ros_gz/issues/727). Therefore, you should remove the source build of ros_gz and reinstall it using the `ros-humble-ros-gzharmonic` package.
+For ROS 2 Humble applications, you need to add a bridge between Gazebo and ROS 2. Nevertheless, ros_gz_bridge does not function properly in the Harmonic version due to a known [issue](https://github.com/gazebosim/ros_gz/issues/727). Therefore, you should remove the source build of ros_gz and reinstall it using the `ros-humble-ros-gzharmonic` package.
 
 ```bash
 cd ~/<your-colcon-workspace>
@@ -112,6 +112,8 @@ ros2 run rqt_image_view rqt_image_view /front_camera
 rviz2
 ```
 
+To change camera resolution, edit values at [bluerov2/model.sdf](./models/bluerov2/model.sdf) in line 455-456.
+
 ## MAVROS
 
 Install MAVROS for ROS 2:
@@ -135,14 +137,8 @@ colcon to build and manage the environment.
    ```bash
    ./scripts/clean_gazebo_cache.sh
    ```
-* Change camera resolution at [bluerov2/model.sdf](./models/bluerov2/model.sdf) in line 455-456.
 
 ## References
 
-* https://github.com/ardupilot/ardupilot_gazebo/wiki
-* https://gazebosim.org/docs/harmonic/install
-* https://ardupilot.org/dev/docs/building-setup-linux.html
-* https://ardupilot.org/dev/docs/setting-up-sitl-on-linux.html
-* https://ardupilot.org/mavproxy/docs/getting_started/download_and_installation.html
-* https://www.ardusub.com/developers/rc-input-and-output.html
-* https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html
+* https://github.com/clydemcqueen/bluerov2_gz
+
