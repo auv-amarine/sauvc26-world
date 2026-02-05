@@ -39,12 +39,13 @@ Install/Clone all these [requirements](#requirements). Ensure ArduSub is already
 Clone this repository to your colcon workspace.
 
 Add env to .bashrc or .zshrc:
-   ```bash
-   export GZ_SIM_RESOURCE_PATH=~/<your-colcon-workspace>/src/bluerov2_gz/models:~/ros2_ws/src/bluerov2_gz/worlds
-   export GZ_SIM_SYSTEM_PLUGIN_PATH=~/ardupilot_gazebo/build
-   ```
 
-(Optional) Build ROS2 in `sauvc26_ros2/`
+```bash
+export GZ_SIM_RESOURCE_PATH=~/<your-colcon-workspace>/src/bluerov2_gz/models:~/ros2_ws/src/bluerov2_gz/worlds
+export GZ_SIM_SYSTEM_PLUGIN_PATH=~/ardupilot_gazebo/build
+```
+
+Then, source .bashrc or .zshrc.
 
 ## Running Gazebo
 
@@ -55,8 +56,8 @@ gz sim -v 3 -r <gazebo-world-file>
 ```
 
 where `<gazebo-world-file>` should be replaced with:
-* `sauvc_qualification.world` for the qualification arena
-* `sauvc_final.world` for the final arena
+* `sauvc_qualification.world` for the qualification arena.
+* `sauvc_final.world` for the final arena.
 
 Now launch ArduSub and ardupilot_gazebo:
 
@@ -84,7 +85,9 @@ gz topic -e -t /front_camera
 
 It will echo the camera’s image stream. If you want to view the camera directly in Gazebo, simply search for “Image Display” in the top bar of Gazebo.
 
-For ROS 2 Humble applications, you need to add a bridge between Gazebo and ROS 2. Nevertheless, ros_gz_bridge does not function properly in the Harmonic version due to a known [issue](https://github.com/gazebosim/ros_gz/issues/727). Therefore, you should remove the source build of ros_gz and reinstall it using the `ros-humble-ros-gzharmonic` package.
+For ROS 2 applications, you need to add a bridge between Gazebo and ROS 2.
+
+Nevertheless, for ROS2 Humble, ros_gz_bridge does not function properly in the Harmonic version due to a known [issue](https://github.com/gazebosim/ros_gz/issues/727). Therefore, you should remove the source build of ros_gz and reinstall it using the `ros-humble-ros-gzharmonic` package.
 
 ```bash
 cd ~/<your-colcon-workspace>
@@ -116,21 +119,11 @@ To change camera resolution, edit values at [bluerov2/model.sdf](./models/bluero
 
 ## MAVROS
 
-Install MAVROS for ROS 2:
-
-```bash
-sudo apt install ros-humble-mavros ros-humble-mavros-extras
-```
 Launch MAVROS with the ArduSub connection:
 
 ```bash
 ros2 launch mavros apm.launch fcu_url:=udp://:14550@localhost:14555
 ```
-
-## ROS2 and Colcon
-
-ROS2 users should add `ardupilot_gazebo -b ros2` and `bluerov2_gz` to the colcon workspace and use
-colcon to build and manage the environment.
 
 ## Throubleshoot
 * If the robot is teleporting, clean the gazebo cache and restart.
@@ -138,7 +131,9 @@ colcon to build and manage the environment.
    ./scripts/clean_gazebo_cache.sh
    ```
 
-## References
+## Credits
 
 * https://github.com/clydemcqueen/bluerov2_gz
+* https://github.com/ArduPilot/ardupilot_gazebo
+
 
